@@ -1,0 +1,221 @@
+# Plasticity: yield criteria, limit analysis, elastic-plastic torsion and cylinders, hardening.
+# Written by Claude; reference answers computed in Python, not yet checked by a human.
+
+- id: plast-von-mises-tension-shear
+  topic: plasticity
+  difficulty: 1
+  statement: |
+    At a point in a thin-walled tube the only non-zero stresses are a normal stress of 200 MPa
+    and a shear stress of 100 MPa on the same plane. Find the von Mises equivalent stress.
+  answer:
+    type: numeric
+    value: 264575000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    sigma_eq = sqrt(sigma^2 + 3 tau^2) = 264.6 MPa.
+  tags:
+  - trap-tresca
+  source: original (Claude); answer to be checked by a human
+- id: plast-rectangular-plastic-moment
+  topic: limit-analysis
+  difficulty: 1
+  statement: |
+    A beam has a solid rectangular section 50 mm wide and 100 mm deep, bending about the axis
+    parallel to the width. The material is elastic-perfectly plastic with yield stress 250 MPa.
+    Find the fully plastic moment.
+  answer:
+    type: numeric
+    value: 31250.0
+    unit: N*m
+    rel_tol: 0.01
+  solution: |
+    M_p = sigma_Y b h^2/4 = 31250 N*m (the first-yield moment b h^2/6 sigma_Y is 2/3 of it).
+  tags:
+  - trap-yield-moment
+  source: original (Claude); answer to be checked by a human
+- id: plast-shape-factor-circle
+  topic: limit-analysis
+  difficulty: 2
+  statement: |
+    Find the shape factor (fully plastic moment divided by first-yield moment) of a solid circular
+    cross-section in bending, for an elastic-perfectly plastic material.
+  answer:
+    type: numeric
+    value: 1.69765
+    unit: ''
+    rel_tol: 0.01
+  solution: |
+    M_p = sigma_Y (4/3) r^3, M_y = sigma_Y pi r^3/4; ratio 16/(3 pi) = 1.6977.
+  tags:
+  - trap-rectangle-1.5
+  source: original (Claude); answer to be checked by a human
+- id: plast-propped-cantilever-point-load
+  topic: limit-analysis
+  difficulty: 3
+  statement: |
+    A beam of span L is built in at one end and simply supported at the other. A single point load
+    acts at midspan. The beam is elastic-perfectly plastic with uniform plastic moment M_p.
+    Find the collapse load.
+  answer:
+    type: symbolic
+    value: 6*Mp/L
+    symbols:
+    - Mp
+    - L
+  solution: |
+    Hinges at the fixed end and under the load: P (L/2) theta = M_p theta + M_p 2 theta => P = 6 M_p/L.
+  tags:
+  - trap-fixed-fixed-8Mp
+  source: original (Claude); answer to be checked by a human
+- id: plast-partially-plastic-torsion
+  topic: plasticity
+  difficulty: 3
+  statement: |
+    A solid circular shaft of radius 20 mm is made of an elastic-perfectly plastic material with
+    shear yield stress 150 MPa. It is twisted until the material has yielded from the surface
+    inwards to a radius of 10 mm (the core of radius 10 mm is still elastic). Find the torque.
+  answer:
+    type: numeric
+    value: 2434.73
+    unit: N*m
+    rel_tol: 0.01
+  solution: |
+    T = (2 pi/3) tau_Y c^3 (1 - rho^3/(4 c^3)) with rho/c = 1/2: 2434.7 N*m.
+  source: original (Claude); answer to be checked by a human
+- id: plast-torsion-residual-surface
+  topic: plasticity
+  difficulty: 3
+  statement: |
+    A solid circular shaft of an elastic-perfectly plastic material with shear yield stress
+    150 MPa is twisted until it is fully plastic (the limit torque), and the torque is then
+    removed. Unloading is elastic. Find the magnitude of the residual shear stress at the outer
+    surface.
+  answer:
+    type: numeric
+    value: 50000000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Limit torque T_p = (2 pi/3) tau_Y c^3. Elastic unloading removes T_p c/J = (4/3) tau_Y at the
+    surface, so the residual stress is tau_Y - (4/3) tau_Y = -tau_Y/3, magnitude 50 MPa.
+  source: original (Claude); answer to be checked by a human
+- id: plast-considere-uts
+  topic: plasticity
+  difficulty: 3
+  statement: |
+    A ductile metal in uniaxial tension follows the true stress - true strain law
+    sigma = K eps^n with K = 500 MPa and n = 0.2 (neglect elastic strains). Using Considere's
+    criterion for the onset of necking, find the engineering ultimate tensile strength.
+  answer:
+    type: numeric
+    value: 296700000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Necking at eps = n; true stress K n^n; engineering stress = true stress x exp(-n)
+    = 296.7 MPa.
+  tags:
+  - trap-true-stress
+  source: original (Claude); answer to be checked by a human
+- id: plast-kinematic-hardening-reverse-yield
+  topic: plasticity
+  difficulty: 3
+  statement: |
+    A bar of a metal with Young's modulus 200 GPa, initial yield stress 200 MPa and linear
+    hardening with tangent modulus 10 GPa (bilinear stress-strain curve) is stretched in tension
+    to a total strain of 0.01 and then loaded in compression. Assuming linear kinematic
+    hardening, at what compressive stress magnitude does reverse yielding begin?
+  answer:
+    type: numeric
+    value: 110000000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Max stress 290 MPa. Kinematic hardening keeps the elastic range 2 sigma_Y = 400 MPa,
+    so reverse yield at 290 - 400 = -110 MPa in compression
+    (isotropic hardening would give 290 MPa).
+  tags:
+  - trap-isotropic-hardening
+  source: original (Claude); answer to be checked by a human
+- id: plast-propped-cantilever-udl
+  topic: limit-analysis
+  difficulty: 4
+  statement: |
+    A beam of span L is built in at one end and simply supported at the other, and carries a
+    uniformly distributed load w per unit length over the whole span. The beam is
+    elastic-perfectly plastic with uniform plastic moment M_p. Find the exact collapse load
+    intensity w.
+  answer:
+    type: symbolic
+    value: (6 + 4*sqrt(2))*Mp/L**2
+    symbols:
+    - Mp
+    - L
+  solution: |
+    Hinges at the fixed end and at distance x from the simple support. Minimising
+    w(x) = 2 M_p (L + x)/(L x (L - x)) gives x = (sqrt 2 - 1) L and w = (6 + 4 sqrt 2) M_p/L^2
+    = 11.66 M_p/L^2.
+  tags:
+  - trap-hinge-at-midspan-12Mp
+  source: original (Claude); answer to be checked by a human
+- id: plast-prandtl-punch
+  topic: slip-line
+  difficulty: 4
+  statement: |
+    A long rigid flat punch is pressed into the flat surface of a rigid-perfectly plastic
+    half-space under plane-strain conditions, with no friction. The material obeys the von Mises
+    yield criterion with uniaxial yield stress 300 MPa. Find the mean punch pressure at which
+    indentation (plastic collapse) occurs.
+  answer:
+    type: numeric
+    value: 890550000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Prandtl's slip-line field: p = (2 + pi) k with k = sigma_Y/sqrt(3) (plane strain, von Mises): 890.5 MPa.
+  tags:
+  - trap-tresca-k
+  source: original (Claude); answer to be checked by a human
+- id: plast-portal-frame-collapse
+  topic: limit-analysis
+  difficulty: 4
+  statement: |
+    A rectangular portal frame has two vertical columns of height 4 m with fixed (built-in) bases
+    and a horizontal beam of span 4 m rigidly joined to the column tops. All members have the same
+    plastic moment, 100 kN*m. A vertical load P acts at the beam's midspan and a horizontal load
+    P/2 acts at the level of the beam. Ignoring axial and shear effects, find the collapse value of P.
+  answer:
+    type: numeric
+    value: 150000.0
+    unit: N
+    rel_tol: 0.01
+  solution: |
+    Beam mechanism: P (L/2) = 4 M_p => P = 200 kN. Sway: (P/2) h = 4 M_p => P = 200 kN.
+    Combined: (P/2) h + P (L/2) = 6 M_p => 4 P = 600 => P = 150 kN. Statical check: the moment at
+    the windward joint is 0 <= M_p, so 150 kN is the exact collapse load.
+  tags:
+  - trap-single-mechanism
+  source: original (Claude); answer to be checked by a human
+- id: plast-thick-cylinder-partial-yield
+  topic: plasticity
+  difficulty: 5
+  statement: |
+    A long thick-walled cylinder has inner radius 50 mm and outer radius 100 mm and is made of an
+    elastic-perfectly plastic material with yield stress 300 MPa. It is loaded by internal pressure
+    only. Use the Tresca yield criterion and assume the axial stress is the intermediate principal
+    stress. Find the internal pressure at which the plastic zone has spread from the bore to a
+    radius of 75 mm.
+  answer:
+    type: numeric
+    value: 187265000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Plastic zone a < r < c: sigma_theta - sigma_r = sigma_Y, sigma_r = -p + sigma_Y ln(r/a).
+    Elastic zone c < r < b just yields at r = c: interface pressure sigma_Y (b^2 - c^2)/(2 b^2).
+    p = sigma_Y [ln(c/a) + (b^2 - c^2)/(2 b^2)] = 187.3 MPa (limits: c = a gives 112.5, c = b gives
+    sigma_Y ln 2 = 207.9).
+  tags:
+  - trap-full-plastic
+  source: original (Claude); answer to be checked by a human

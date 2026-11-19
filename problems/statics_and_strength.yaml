@@ -1,0 +1,69 @@
+# Seed problems: beams, axial members, torsion, stability.
+# Reference values are checked numerically in tests/test_problems.py.
+
+- id: beam-cantilever-tip-load
+  topic: beams
+  difficulty: 1
+  statement: |
+    A steel cantilever of length L = 2 m is fixed at one end and carries a point load
+    P = 1000 N at its free end. Young's modulus E = 200 GPa and the second moment of
+    area of the cross-section I = 8e-6 m^4. Neglect self-weight and shear deformation.
+    Find the deflection of the free end.
+  answer: { type: numeric, value: 1.6667e-3, unit: m, rel_tol: 0.01 }
+  solution: delta = P L^3 / (3 E I) = 1000 * 8 / (3 * 200e9 * 8e-6) = 1.667e-3 m.
+  tags: [euler-bernoulli]
+
+- id: beam-simply-supported-udl
+  topic: beams
+  difficulty: 1
+  statement: |
+    A simply supported beam of span L = 6 m carries a uniformly distributed load
+    w = 5 kN/m over its whole length. Find the maximum bending moment.
+  answer: { type: numeric, value: 22500, unit: "N*m", rel_tol: 0.01 }
+  solution: M_max = w L^2 / 8 = 5000 * 36 / 8 = 22 500 N m, at midspan.
+
+- id: axial-composite-bar-series
+  topic: axial
+  difficulty: 2
+  statement: |
+    A bar is made of a 1 m steel segment (E = 200 GPa) joined end to end with a 1 m
+    aluminium segment (E = 70 GPa). Both segments have cross-sectional area 500 mm^2.
+    An axial tensile force of 50 kN is applied at the ends. Find the total elongation.
+  answer: { type: numeric, value: 1.92857e-3, unit: m, rel_tol: 0.01 }
+  solution: |
+    Same force in both segments (series). sigma = 50e3 / 5e-4 = 100 MPa.
+    delta = sigma (L1/E1 + L2/E2) = 1e8 * (1/200e9 + 1/70e9) = 1.929e-3 m.
+  tags: [trap-parallel-vs-series]
+
+- id: axial-suddenly-applied-load
+  topic: dynamics
+  difficulty: 3
+  statement: |
+    A vertical elastic rod with cross-sectional area 100 mm^2 hangs from a rigid support.
+    A 100 kg mass is attached to its lower end while held so that the rod is unstressed,
+    and is then released suddenly from rest (no drop height). Take g = 9.81 m/s^2 and
+    neglect the mass of the rod and any damping. Find the maximum tensile stress in the rod.
+  answer: { type: numeric, value: 19.62e6, unit: Pa, rel_tol: 0.01 }
+  solution: |
+    Suddenly applied load: energy balance m g x = k x^2 / 2 gives x_max = 2 x_static,
+    so sigma_max = 2 m g / A = 2 * 981 / 1e-4 = 19.62 MPa.
+  tags: [trap-static-answer, dynamic-amplification]
+
+- id: torsion-solid-shaft-max-shear
+  topic: torsion
+  difficulty: 1
+  statement: |
+    A solid circular shaft of diameter 50 mm transmits a torque of 1 kN*m.
+    Find the maximum shear stress in the shaft.
+  answer: { type: numeric, value: 40.74e6, unit: Pa, rel_tol: 0.01 }
+  solution: tau_max = 16 T / (pi d^3) = 16 * 1000 / (pi * 0.05^3) = 40.74 MPa.
+
+- id: buckling-euler-pinned-pinned
+  topic: stability
+  difficulty: 2
+  statement: |
+    An aluminium column of length 1.5 m is pinned at both ends. E = 70 GPa and the
+    smallest second moment of area of its cross-section is I = 2e-7 m^4.
+    Find the Euler critical buckling load.
+  answer: { type: numeric, value: 61411, unit: N, rel_tol: 0.01 }
+  solution: P_cr = pi^2 E I / L^2 = 9.8696 * 70e9 * 2e-7 / 2.25 = 61.4 kN.

@@ -1,0 +1,236 @@
+# Fracture mechanics: LEFM, energy release rate, fatigue, elastic-plastic and mixed-mode fracture.
+# Written by Claude; reference answers computed in Python, not yet checked by a human.
+
+- id: frac-edge-crack-sif
+  topic: fracture
+  difficulty: 1
+  statement: |
+    A wide plate has a straight through-thickness crack 2 mm deep growing in from one free edge,
+    perpendicular to a remote uniform tensile stress of 100 MPa. Using the standard edge-crack
+    geometry factor 1.12 for a semi-infinite plate, find the mode I stress intensity factor.
+  answer:
+    type: numeric
+    value: 8.87785
+    unit: MPa*m^0.5
+    rel_tol: 0.01
+  solution: |
+    K = 1.12 sigma sqrt(pi a) with a = 2 mm (full depth): 8.88 MPa sqrt(m).
+  tags:
+  - trap-half-length
+  source: original (Claude); answer to be checked by a human
+- id: frac-astm-e399-thickness
+  topic: fracture
+  difficulty: 1
+  statement: |
+    A plane-strain fracture toughness test on a steel with 0.2% yield strength 500 MPa gives a
+    candidate value K_Q = 50 MPa*sqrt(m). What is the minimum specimen thickness required by the
+    ASTM E399 size criterion for K_Q to be a valid K_IC?
+  answer:
+    type: numeric
+    value: 0.025
+    unit: m
+    rel_tol: 0.01
+  solution: |
+    B >= 2.5 (K_Q / sigma_YS)^2 = 2.5 (0.1 m^0.5)^2 = 0.025 m = 25 mm.
+  source: original (Claude); answer to be checked by a human
+- id: frac-g-from-k-plane-strain
+  topic: fracture
+  difficulty: 1
+  statement: |
+    Under plane-strain mode I loading a crack tip in a steel (Young's modulus 200 GPa, Poisson's
+    ratio 0.3) has stress intensity factor 40 MPa*sqrt(m). Find the energy release rate.
+  answer:
+    type: numeric
+    value: 7280.0
+    unit: J/m^2
+    rel_tol: 0.01
+  solution: |
+    G = K^2 (1 - nu^2)/E = 7280 J/m^2.
+  tags:
+  - trap-plane-stress
+  source: original (Claude); answer to be checked by a human
+- id: frac-griffith-glass
+  topic: fracture
+  difficulty: 2
+  statement: |
+    An infinite glass plate (Young's modulus 70 GPa, surface energy 1 J/m^2) contains a
+    through-thickness crack of total length 2 micrometres, perpendicular to a remote tensile
+    stress. Using Griffith's energy criterion in plane stress, find the fracture stress.
+  answer:
+    type: numeric
+    value: 211100000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    sigma_f = sqrt(2 E gamma_s/(pi a)) with a = 1 um: 211 MPa.
+  tags:
+  - trap-half-length
+  - trap-gamma-vs-G
+  source: original (Claude); answer to be checked by a human
+- id: frac-finite-width-secant
+  topic: fracture
+  difficulty: 2
+  statement: |
+    A plate 100 mm wide contains a central through-thickness crack 40 mm long (tip to tip),
+    perpendicular to a remote tensile stress of 150 MPa. Using Feddersen's finite-width
+    correction sqrt(sec(pi a / W)), where a is the half crack length and W the plate width, find
+    the stress intensity factor.
+  answer:
+    type: numeric
+    value: 41.8025
+    unit: MPa*m^0.5
+    rel_tol: 0.01
+  solution: |
+    a = 20 mm, a/W = 0.2: K = sigma sqrt(pi a) sqrt(sec(0.2 pi)) = 41.80 MPa sqrt(m).
+  tags:
+  - trap-half-length
+  source: original (Claude); answer to be checked by a human
+- id: frac-weibull-size-effect
+  topic: brittle-fracture
+  difficulty: 2
+  statement: |
+    The tensile strength of a ceramic follows two-parameter Weibull statistics with modulus 10.
+    Uniformly stressed specimens of volume V have a median strength of 300 MPa. What median
+    strength is expected for uniformly stressed specimens of volume 8V?
+  answer:
+    type: numeric
+    value: 243676000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    sigma2/sigma1 = (V1/V2)^(1/m) = 8^(-0.1) = 0.8123; 243.7 MPa.
+  source: original (Claude); answer to be checked by a human
+- id: frac-penny-crack-critical-size
+  topic: fracture
+  difficulty: 3
+  statement: |
+    A large body of a high-strength steel (K_IC = 30 MPa*sqrt(m)) contains an embedded,
+    penny-shaped (circular) crack whose plane is perpendicular to a remote uniform tensile
+    stress of 300 MPa. Find the crack diameter at which fracture occurs.
+  answer:
+    type: numeric
+    value: 0.015708
+    unit: m
+    rel_tol: 0.01
+  solution: |
+    K = 2 sigma sqrt(a/pi) => a_c = (pi/4)(K_IC/sigma)^2 = 7.854 mm; diameter 15.71 mm.
+  tags:
+  - trap-through-crack-formula
+  - trap-radius
+  source: original (Claude); answer to be checked by a human
+- id: frac-leak-before-break
+  topic: fracture
+  difficulty: 3
+  statement: |
+    A thin-walled cylindrical pressure vessel has mean radius 1 m and wall thickness 20 mm and is
+    made of steel with K_IC = 100 MPa*sqrt(m). For leak-before-break, an axial through-wall crack
+    of total length equal to twice the wall thickness must be stable. Treating the hoop stress as
+    the remote stress on an infinite plate (no bulging correction), find the largest internal
+    pressure for which this crack is stable.
+  answer:
+    type: numeric
+    value: 7978850.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Hoop stress p R/t; a = t (half of 2t); K = (pR/t) sqrt(pi t) = K_IC => p = 7.98 MPa.
+  tags:
+  - trap-half-length
+  source: original (Claude); answer to be checked by a human
+- id: frac-paris-law-life
+  topic: fatigue
+  difficulty: 3
+  statement: |
+    A large plate contains a central through crack of total length 2 mm. It is loaded by a remote
+    stress cycling between 0 and 100 MPa. Fatigue growth follows da/dN = C (Delta K)^3 with
+    C = 1e-11 (da/dN in m/cycle, Delta K in MPa*sqrt(m)), where a is the half crack length and
+    K = sigma sqrt(pi a). Fracture occurs when K_max reaches K_IC = 50 MPa*sqrt(m). Find the number
+    of cycles to failure.
+  answer:
+    type: numeric
+    value: 1008480.0
+    unit: ''
+    rel_tol: 0.02
+  solution: |
+    a0 = 1 mm, a_c = (K_IC/sigma_max)^2/pi = 79.6 mm.
+    N = 2/((m-2) C (dsigma sqrt pi)^m) (a0^(-1/2) - a_c^(-1/2)) = 1.008e+06 cycles.
+  tags:
+  - trap-half-length
+  source: original (Claude); answer to be checked by a human
+- id: frac-dcb-fixed-grip
+  topic: fracture
+  difficulty: 4
+  statement: |
+    A double cantilever beam specimen has two identical arms, each of thickness h and width b,
+    made of a material with Young's modulus E. The crack length (from the load line to the crack
+    tip) is a. The load points are pulled apart and then held at a fixed total opening delta.
+    Treat each arm as an Euler-Bernoulli cantilever built in at the crack tip. Find the energy
+    release rate G in terms of E, h, delta and a.
+  answer:
+    type: symbolic
+    value: 3*E*h**3*delta**2/(16*a**4)
+    symbols:
+    - E
+    - h
+    - delta
+    - a
+  solution: |
+    Compliance C = delta/P = 8 a^3/(E b h^3). G = P^2/(2b) dC/da = 12 P^2 a^2/(E b^2 h^3);
+    with P = delta/C, G = 3 E h^3 delta^2/(16 a^4) (falls with a: stable under fixed grips).
+  tags:
+  - trap-fixed-load-form
+  source: original (Claude); answer to be checked by a human
+- id: frac-mts-mode-ii-kink-angle
+  topic: mixed-mode
+  difficulty: 4
+  statement: |
+    A crack is loaded in pure mode II (K_I = 0). According to the maximum tangential stress
+    criterion of Erdogan and Sih, at what angle to its original plane does the crack begin to
+    grow? Give the magnitude of the angle in degrees.
+  answer:
+    type: numeric
+    value: 70.5288
+    unit: degree
+    rel_tol: 0.01
+  solution: |
+    K_I sin(theta) + K_II (3 cos(theta) - 1) = 0 with K_I = 0 gives cos(theta) = 1/3,
+    |theta| = 70.53 deg.
+  source: original (Claude); answer to be checked by a human
+- id: frac-dugdale-ctod
+  topic: elastic-plastic-fracture
+  difficulty: 4
+  statement: |
+    A large thin sheet of steel (Young's modulus 200 GPa, yield stress 400 MPa) contains a central
+    through crack of total length 20 mm, perpendicular to a remote tensile stress of 200 MPa.
+    Using the Dugdale strip-yield model, find the crack tip opening displacement.
+  answer:
+    type: numeric
+    value: 1.76508e-05
+    unit: m
+    rel_tol: 0.01
+  solution: |
+    delta = (8 sigma_Y a/(pi E)) ln sec(pi sigma/(2 sigma_Y)), a = 10 mm: 17.65 um.
+  tags:
+  - trap-half-length
+  - trap-small-scale-approx
+  source: original (Claude); answer to be checked by a human
+- id: frac-r-curve-instability
+  topic: fracture
+  difficulty: 5
+  statement: |
+    A large thin aluminium sheet (Young's modulus 70 GPa) has a central through crack of initial
+    half-length 10 mm under remote tension, so that G = pi sigma^2 a / E (plane stress). Its
+    crack growth resistance curve is R = A sqrt(Delta a) with A = 2e5 J/m^(5/2), where Delta a is
+    the growth of the half-length. The stress is increased slowly. Find the remote stress at
+    which crack growth becomes unstable.
+  answer:
+    type: numeric
+    value: 149271000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Instability when G = R and dG/da = dR/da: pi s^2/E = A/(2 sqrt(da)) and pi s^2 (a0+da)/E = A sqrt(da)
+    => a0 + da = 2 da, da = a0; sigma_c = sqrt(A E /(2 pi sqrt(a0))) = 149.3 MPa.
+  tags:
+  - trap-initiation-only
+  source: original (Claude); answer to be checked by a human

@@ -1,0 +1,257 @@
+# Theoretical mechanics: rigid bodies, Lagrangian systems, central forces, rotating frames.
+# Written by Claude; reference answers computed in Python, not yet checked by a human.
+
+- id: tm-cylinder-rolling-incline
+  topic: rigid-body
+  difficulty: 1
+  subject: theoretical mechanics
+  statement: |
+    A uniform solid cylinder rolls without slipping down a rough plane inclined at angle theta
+    to the horizontal. Gravity g acts vertically. Find the acceleration of the cylinder's centre.
+  answer:
+    type: symbolic
+    value: 2*g*sin(theta)/3
+    symbols:
+    - g
+    - theta
+  solution: |
+    m a = m g sin(theta) - F, F r = (m r^2/2)(a/r) => a = 2 g sin(theta)/3.
+  tags:
+  - trap-sliding-block
+  source: original (Claude); answer to be checked by a human
+- id: tm-atwood-massive-pulley
+  topic: rigid-body
+  difficulty: 2
+  subject: theoretical mechanics
+  statement: |
+    Two blocks of mass 5 kg and 3 kg hang on either side of a light inextensible string passing
+    over a pulley that is a uniform disc of mass 2 kg. The pulley turns on a frictionless axle
+    and the string does not slip on it. Take g = 9.81 m/s^2. Find the magnitude of the blocks'
+    acceleration.
+  answer:
+    type: numeric
+    value: 2.18
+    unit: m/s^2
+    rel_tol: 0.01
+  solution: |
+    (m1 - m2) g = (m1 + m2 + M/2) a => a = 2*9.81/9 = 2.1800 m/s^2.
+  tags:
+  - trap-massless-pulley
+  source: original (Claude); answer to be checked by a human
+- id: tm-bowling-ball-slip-distance
+  topic: rigid-body
+  difficulty: 2
+  subject: theoretical mechanics
+  statement: |
+    A uniform solid ball is launched along a level floor with centre speed 8 m/s and no initial
+    spin. The coefficient of kinetic friction between ball and floor is 0.1, and g = 9.81 m/s^2.
+    How far does the ball travel before it starts rolling without slipping?
+  answer:
+    type: numeric
+    value: 15.977
+    unit: m
+    rel_tol: 0.01
+  solution: |
+    Sliding: v = v0 - mu g t, omega = (5 mu g / 2r) t. Rolling when v = omega r:
+    t1 = 2 v0/(7 mu g). Distance s = v0 t1 - mu g t1^2/2 = 12 v0^2/(49 mu g) = 15.977 m.
+  tags:
+  - trap-final-speed-5/7
+  source: original (Claude); answer to be checked by a human
+- id: tm-bead-rotating-hoop-angle
+  topic: lagrangian
+  difficulty: 2
+  subject: theoretical mechanics
+  statement: |
+    A small bead slides without friction on a circular wire hoop of radius 0.2 m. The hoop
+    spins at a constant 10 rad/s about its vertical diameter; g = 9.81 m/s^2. Find the angle,
+    measured from the lowest point of the hoop (as seen from the centre), at which the bead can
+    stay at rest relative to the hoop, other than the bottom itself. Give it in degrees.
+  answer:
+    type: numeric
+    value: 60.6265
+    unit: degree
+    rel_tol: 0.01
+  solution: |
+    Effective potential: equilibrium where cos(theta) = g/(omega^2 R) = 0.4905, theta = 60.63 deg.
+  source: original (Claude); answer to be checked by a human
+- id: tm-bead-rotating-hoop-frequency
+  topic: lagrangian
+  difficulty: 3
+  subject: theoretical mechanics
+  statement: |
+    A small bead slides without friction on a circular wire hoop of radius 0.2 m. The hoop
+    spins at a constant 10 rad/s about its vertical diameter; g = 9.81 m/s^2. The bead sits at
+    its stable equilibrium away from the bottom of the hoop. Find the angular frequency of
+    small oscillations of the bead about this position, relative to the hoop.
+  answer:
+    type: numeric
+    value: 8.71441
+    unit: rad/s
+    rel_tol: 0.01
+  solution: |
+    theta'' = sin(theta) (omega^2 cos(theta) - g/R). Linearising at cos(theta0) = g/(omega^2 R):
+    Omega^2 = omega^2 sin^2(theta0), Omega = omega sin(theta0) = 8.7144 rad/s.
+  tags:
+  - trap-ignores-rotation
+  source: original (Claude); answer to be checked by a human
+- id: tm-hohmann-leo-geo
+  topic: central-force
+  difficulty: 3
+  subject: theoretical mechanics
+  statement: |
+    A satellite is in a circular orbit of radius 7000 km about the Earth
+    (GM = 3.986e14 m^3/s^2). It transfers to a coplanar circular orbit of radius 42164 km by a
+    Hohmann transfer with two impulsive burns. Find the total speed change of the two burns.
+  answer:
+    type: numeric
+    value: 3770.73
+    unit: m/s
+    rel_tol: 0.01
+  solution: |
+    v1 = sqrt(mu/r1), transfer ellipse a = (r1+r2)/2; dv1 = v1 (sqrt(r2/a) - 1),
+    dv2 = sqrt(mu/r2)(1 - sqrt(r1/a)). Total = 3771 m/s.
+  source: original (Claude); answer to be checked by a human
+- id: tm-double-pendulum-slow-mode
+  topic: lagrangian
+  difficulty: 3
+  subject: theoretical mechanics
+  statement: |
+    A double pendulum is made of two point masses m and two light rigid rods of length l: the
+    first rod hangs from a fixed pivot and carries the first mass, the second rod hangs from the
+    first mass and carries the second. Motion is in a vertical plane under gravity g. Find the
+    lower of the two angular frequencies of small oscillation.
+  answer:
+    type: symbolic
+    value: sqrt((2 - sqrt(2))*g/l)
+    symbols:
+    - g
+    - l
+  solution: |
+    Linearised: M = m l^2 [[2,1],[1,1]], K = m g l [[2,0],[0,1]]; omega^2 = (2 -+ sqrt 2) g/l.
+  source: original (Claude); answer to be checked by a human
+- id: tm-ball-in-bowl-period
+  topic: rigid-body
+  difficulty: 3
+  subject: theoretical mechanics
+  statement: |
+    A uniform solid ball of radius 5 cm rolls without slipping inside a fixed spherical bowl of
+    inner radius 50 cm, making small oscillations about the lowest point in a vertical plane;
+    g = 9.81 m/s^2. Find the period of the oscillations.
+  answer:
+    type: numeric
+    value: 1.59227
+    unit: s
+    rel_tol: 0.01
+  solution: |
+    Centre moves on a circle of radius R - r. Rolling inside: omega_ball r = (R - r) phi'.
+    Energy gives (7/5)(R - r) phi'' = -g phi => T = 2 pi sqrt(7(R-r)/(5g)) = 1.5923 s.
+  tags:
+  - trap-point-mass
+  - trap-uses-R
+  source: original (Claude); answer to be checked by a human
+- id: tm-coriolis-dropped-mass
+  topic: non-inertial
+  difficulty: 3
+  subject: theoretical mechanics
+  statement: |
+    A small stone is released from rest 100 m above level ground at latitude 45 degrees north.
+    Neglect air resistance and take g = 9.81 m/s^2 and the Earth's rotation rate as
+    7.292e-5 rad/s. To first order in the rotation rate, how far from the point directly below
+    the release point does the stone land? (Give the distance.)
+  answer:
+    type: numeric
+    value: 0.015521
+    unit: m
+    rel_tol: 0.01
+  solution: |
+    Coriolis acceleration -2 Omega x v gives an eastward x'' = 2 Omega g t cos(lat).
+    x = Omega g t^3 cos(lat) / 3 with t = sqrt(2h/g) = 4.515 s: x = 15.52 mm east.
+  tags:
+  - trap-factor-2
+  source: original (Claude); answer to be checked by a human
+- id: tm-sliding-ladder-leaves-wall
+  topic: rigid-body
+  difficulty: 4
+  subject: theoretical mechanics
+  statement: |
+    A uniform ladder rests against a smooth vertical wall with its foot on a smooth horizontal
+    floor (no friction anywhere). It is released from rest at 60 degrees to the horizontal and
+    slides down in a vertical plane. At what angle to the horizontal does the top of the ladder
+    lose contact with the wall? Give it in degrees.
+  answer:
+    type: numeric
+    value: 35.2644
+    unit: degree
+    rel_tol: 0.01
+  solution: |
+    While in contact the centre stays on a circle of radius L/2 about the corner; energy gives
+    alpha'^2 = (3g/L)(sin a0 - sin a). Wall force N = m x'' vanishes when sin a = (2/3) sin a0
+    = 0.5774, a = 35.26 deg (checked by integrating the motion).
+  tags:
+  - trap-contact-to-floor
+  source: original (Claude); answer to be checked by a human
+- id: tm-torque-free-symmetric-precession
+  topic: rigid-body
+  difficulty: 4
+  subject: theoretical mechanics
+  statement: |
+    A rigid body with an axis of symmetry has principal moments of inertia I1 = I2 = 2 kg*m^2
+    about the transverse axes and I3 = 3 kg*m^2 about the symmetry axis, all through its centre
+    of mass. It moves freely with no torque. At some instant its angular velocity has component
+    10 rad/s along the symmetry axis and 2 rad/s perpendicular to it. Find the rate at which the
+    symmetry axis precesses about the fixed angular momentum vector, as seen from an inertial
+    frame.
+  answer:
+    type: numeric
+    value: 15.1327
+    unit: rad/s
+    rel_tol: 0.01
+  solution: |
+    Space-frame precession rate = |L|/I1, |L| = sqrt((I1 w_perp)^2 + (I3 w3)^2) = 30.265.
+    Rate = 15.1327 rad/s. (The body-frame rate (I3-I1) w3/I1 = 5 rad/s is a different quantity.)
+  tags:
+  - trap-body-frame-rate
+  source: original (Claude); answer to be checked by a human
+- id: tm-apsidal-angle-power-law
+  topic: central-force
+  difficulty: 4
+  subject: theoretical mechanics
+  statement: |
+    A particle moves under an attractive central force whose magnitude is proportional to
+    r^(-5/2), where r is the distance from the centre. Its orbit is nearly circular. Find the
+    apsidal angle: the angle swept about the centre between a point of minimum distance and the
+    next point of maximum distance. Give it in degrees.
+  answer:
+    type: numeric
+    value: 254.558
+    unit: degree
+    rel_tol: 0.01
+  solution: |
+    For F = -k r^n, perturbing a circular orbit gives u'' + (n+3) u = 0 (u = 1/r deviation),
+    so the apsidal angle is pi/sqrt(n+3) = pi/sqrt(0.5) = 254.56 deg.
+  tags:
+  - trap-kepler-180
+  source: original (Claude); answer to be checked by a human
+- id: tm-heavy-top-slow-precession
+  topic: rigid-body
+  difficulty: 5
+  subject: theoretical mechanics
+  statement: |
+    A heavy symmetric top spins with its tip on a fixed pivot. Its moment of inertia about the
+    symmetry axis is I3 = 0.004 kg*m^2 and about any perpendicular axis through the pivot is
+    I1 = 0.01 kg*m^2. The product of its weight and the distance from pivot to centre of mass
+    is m*g*l = 0.5 N*m. The component of its angular velocity along the symmetry axis is
+    100 rad/s. The top precesses steadily with its axis at a fixed 30 degrees from the upward
+    vertical, with no nutation. Find the slower of the two possible precession rates, exactly
+    (not with the gyroscopic approximation).
+  answer:
+    type: numeric
+    value: 1.28579
+    unit: rad/s
+    rel_tol: 0.01
+  solution: |
+    Lagrangian theta-equation with theta' = 0: I1 Omega^2 cos(theta) - I3 omega3 Omega + m g l = 0.
+    Slow root Omega = 1.2858 rad/s (the gyroscopic estimate m g l/(I3 omega3) = 1.25 is 3% low).
+  tags:
+  - trap-gyroscopic-approximation
+  source: original (Claude); answer to be checked by a human

@@ -1,0 +1,13 @@
+{
+  "beam-cantilever-tip-load": "delta = P L^3/(3EI) = 1000*8/(3*200e9*8e-6) = 1.667e-3 m.\nFINAL ANSWER: 1.667 mm\nCONFIDENCE: 95",
+  "beam-simply-supported-udl": "M = wL^2/8 = 22.5 kN m.\nFINAL ANSWER: 22.5 kN*m\nCONFIDENCE: 97",
+  "axial-composite-bar-series": "Treating the segments as springs in parallel, E_eq = 135 GPa, L = 2 m, delta = PL/(AE) = 1.48e-3 m.\nFINAL ANSWER: 1.48e-3 m\nCONFIDENCE: 90",
+  "axial-suddenly-applied-load": "sigma = mg/A = 981/1e-4 = 9.81 MPa.\nFINAL ANSWER: 9.81e6 Pa\nCONFIDENCE: 92",
+  "torsion-solid-shaft-max-shear": "tau = 16T/(pi d^3) = 40.7 MPa.\nFINAL ANSWER: 40.7 MPa\nCONFIDENCE: 96",
+  "buckling-euler-pinned-pinned": "P = pi^2 EI/L^2 = 61.4 kN.\nFINAL ANSWER: 61.4 kN\nCONFIDENCE: 94",
+  "fracture-centre-crack-critical-stress": "sigma = K/sqrt(pi a) with a = 10 mm: 30/sqrt(pi*0.01) = 169 MPa.\nFINAL ANSWER: 169 MPa\nCONFIDENCE: 88",
+  "vibration-springs-in-series": "k_eq = k1 k2/(k1+k2).\nFINAL ANSWER: sqrt(k1*k2/(m*(k1+k2)))\nCONFIDENCE: 93",
+  "waves-bar-velocity-steel": "c = sqrt(E/rho) = 5048 m/s.\nFINAL ANSWER: 5048 m/s\nCONFIDENCE: 95",
+  "waves-free-end-reflection": "At a free end stress vanishes, so the pulse changes sign.\nFINAL ANSWER: B\nCONFIDENCE: 70",
+  "beam-midspan-from-image": "Reading the image: L = 3 m, P = 2 kN at midspan, E = 200 GPa, I = 4e-6 m^4.\ndelta = P L^3/(48EI) = 54000/38400 = 1.406e-3 m.\nFINAL ANSWER: 1.406 mm\nCONFIDENCE: 90"
+}

@@ -1,0 +1,21 @@
+# Problems given as images (scans of handwriting, photos, screenshots).
+# Image paths are relative to this file.
+#
+#   mathscanbench --results demo run examples/image_problems.yaml --model mock:examples/mock_replies.json --samples 1
+#   mathscanbench --results demo verify examples/image_problems.yaml --verifier mock
+
+- id: beam-midspan-from-image
+  topic: beams
+  difficulty: 1
+  images: [images/beam_midspan_problem.png]
+  answer: { type: numeric, value: 1.40625e-3, unit: m, rel_tol: 0.01 }
+  solution: delta = P L^3 / (48 E I) = 2000 * 27 / (48 * 200e9 * 4e-6) = 1.406e-3 m.
+  tags: [euler-bernoulli, trap-cantilever-formula]
+  # Hand-written solutions, marked by hand, for the verify experiment.
+  submissions:
+    - author: student
+      correct: true
+      images: [images/beam_midspan_solution_correct.png]
+    - author: student
+      correct: false
+      images: [images/beam_midspan_solution_wrong.png]

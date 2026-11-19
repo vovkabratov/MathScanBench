@@ -1,0 +1,214 @@
+# Wave mechanics in solids: body and surface waves, impedance, dispersion, impact, plastic waves.
+# Written by Claude; reference answers computed in Python, not yet checked by a human.
+
+- id: wave-shear-speed-steel
+  topic: waves
+  difficulty: 1
+  statement: |
+    Find the speed of shear (transverse) body waves in an unbounded steel medium with Young's
+    modulus 200 GPa, Poisson's ratio 0.3 and density 7850 kg/m^3.
+  answer:
+    type: numeric
+    value: 3130.35
+    unit: m/s
+    rel_tol: 0.01
+  solution: |
+    G = E/(2(1+nu)) = 76.92 GPa; c_s = sqrt(G/rho) = 3130 m/s.
+  source: original (Claude); answer to be checked by a human
+- id: wave-fixed-free-bar-fundamental
+  topic: waves
+  difficulty: 1
+  statement: |
+    A thin steel bar 1 m long (Young's modulus 200 GPa, density 7850 kg/m^3) is clamped at one
+    end and free at the other. Using one-dimensional bar theory, find the lowest natural
+    frequency of longitudinal vibration in hertz.
+  answer:
+    type: numeric
+    value: 1261.89
+    unit: Hz
+    rel_tol: 0.01
+  solution: |
+    Fixed-free: L = lambda/4, f1 = c0/(4L) = 1261.9 Hz with c0 = sqrt(E/rho).
+  tags:
+  - trap-free-free
+  source: original (Claude); answer to be checked by a human
+- id: wave-p-speed-unbounded-steel
+  topic: waves
+  difficulty: 2
+  statement: |
+    Find the speed of longitudinal (dilatational, P) waves in an unbounded steel medium with
+    Young's modulus 200 GPa, Poisson's ratio 0.3 and density 7850 kg/m^3.
+  answer:
+    type: numeric
+    value: 5856.36
+    unit: m/s
+    rel_tol: 0.01
+  solution: |
+    c_p = sqrt(E(1-nu)/((1+nu)(1-2nu) rho)) = 5856 m/s (not the bar speed 5048 m/s).
+  tags:
+  - trap-bar-speed
+  source: original (Claude); answer to be checked by a human
+- id: wave-bar-on-bar-impact-stress
+  topic: impact
+  difficulty: 2
+  statement: |
+    A long steel bar moving along its axis at 10 m/s strikes, end on, an identical stationary
+    steel bar. Both are linearly elastic with Young's modulus 200 GPa and density 7850 kg/m^3.
+    Using one-dimensional bar theory, find the magnitude of the compressive stress produced at
+    the impact face.
+  answer:
+    type: numeric
+    value: 198116000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    By symmetry the interface moves at v/2; sigma = rho c0 v/2 = 198.1 MPa.
+  tags:
+  - trap-full-velocity
+  source: original (Claude); answer to be checked by a human
+- id: wave-area-change-transmission
+  topic: waves
+  difficulty: 2
+  statement: |
+    A long steel bar of cross-sectional area A is joined end to end with a long steel bar of the
+    same material and cross-sectional area 2A. A compressive stress pulse of amplitude 90 MPa
+    travels in the smaller bar towards the joint. Using one-dimensional bar theory, find the
+    amplitude of the stress in the pulse transmitted into the larger bar.
+  answer:
+    type: numeric
+    value: 60000000.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Force continuity and velocity continuity: transmitted force ratio 2 Z2 A2/(Z1 A1 + Z2 A2) = 4/3;
+    stress ratio = (4/3)(A1/A2) = 2/3, so 60 MPa (the reflected pulse is tensile, 30 MPa).
+  tags:
+  - trap-same-material-full-transmission
+  source: original (Claude); answer to be checked by a human
+- id: wave-steel-to-aluminium-transmission
+  topic: waves
+  difficulty: 2
+  statement: |
+    A compressive stress pulse of amplitude 100 MPa travels along a long steel bar
+    (E = 200 GPa, density 7850 kg/m^3) into a long aluminium bar of the same cross-section
+    (E = 70 GPa, density 2700 kg/m^3), perfectly bonded end to end. Using one-dimensional bar
+    theory, find the amplitude of the transmitted stress pulse in the aluminium.
+  answer:
+    type: numeric
+    value: 51517600.0
+    unit: Pa
+    rel_tol: 0.01
+  solution: |
+    Z = rho c A; sigma_T/sigma_I = 2 Z2/(Z1+Z2) = 0.5152; sigma_T = 51.5 MPa.
+  source: original (Claude); answer to be checked by a human
+- id: wave-rayleigh-speed-poisson-solid
+  topic: waves
+  difficulty: 3
+  statement: |
+    An isotropic, linearly elastic half-space has Poisson's ratio exactly 0.25 and shear-wave
+    speed 3000 m/s. Find the speed of Rayleigh surface waves.
+  answer:
+    type: numeric
+    value: 2758.21
+    unit: m/s
+    rel_tol: 0.01
+  solution: |
+    Rayleigh equation (2 - x)^2 = 4 sqrt(1-x) sqrt(1 - x/3) with x = (c_R/c_s)^2; for nu = 1/4
+    x = 2 - 2/sqrt(3), c_R = 0.9194 c_s = 2758 m/s.
+  source: original (Claude); answer to be checked by a human
+- id: wave-flexural-group-velocity
+  topic: dispersion
+  difficulty: 3
+  statement: |
+    A long steel beam has a solid rectangular cross-section of thickness 10 mm in the bending
+    direction (Young's modulus 200 GPa, density 7850 kg/m^3). Using Euler-Bernoulli beam theory,
+    find the group velocity of bending (flexural) waves at a frequency of 1 kHz.
+  answer:
+    type: numeric
+    value: 605.152
+    unit: m/s
+    rel_tol: 0.01
+  solution: |
+    omega = k^2 sqrt(EI/(rho A)), I/A = h^2/12. Phase speed sqrt(omega)(EI/rho A)^(1/4) = 302.6 m/s;
+    group speed = d omega/dk = 2 x phase speed = 605 m/s.
+  tags:
+  - trap-phase-velocity
+  source: original (Claude); answer to be checked by a human
+- id: wave-second-critical-angle-water-steel
+  topic: waves
+  difficulty: 3
+  statement: |
+    A plane longitudinal wave in water (wave speed 1480 m/s) strikes a flat steel surface. In the
+    steel the longitudinal wave speed is 5900 m/s and the shear wave speed is 3200 m/s. Find the
+    angle of incidence (from the normal) beyond which no wave of any kind is transmitted into the
+    steel as a propagating body wave. Give it in degrees.
+  answer:
+    type: numeric
+    value: 27.5485
+    unit: degree
+    rel_tol: 0.01
+  solution: |
+    Snell: sin(theta)/c_w = sin(theta_L)/c_L = sin(theta_S)/c_S. Second critical angle when the
+    refracted shear wave grazes: arcsin(1480/3200) = 27.55 deg
+    (the first, for the P wave, is 14.53 deg).
+  tags:
+  - trap-first-critical-angle
+  source: original (Claude); answer to be checked by a human
+- id: wave-spall-triangular-pulse
+  topic: dynamic-fracture
+  difficulty: 4
+  statement: |
+    A compressive stress pulse travels along a long, linearly elastic bar towards a free end. The
+    pulse has a sharp front of 300 MPa and the stress falls linearly to zero over a length of
+    100 mm behind the front. The material fractures instantly when the tensile stress reaches
+    100 MPa, and is otherwise elastic. At what distance from the free end does the first spall
+    fracture occur?
+  answer:
+    type: numeric
+    value: 0.0166667
+    unit: m
+    rel_tol: 0.01
+  solution: |
+    The reflected wave is tensile with the same shape. At distance x from the end the reflected
+    front (tension s0) meets incident compression s0 (1 - 2x/lambda); net tension 2 s0 x/lambda.
+    It first reaches 100 MPa at x = sigma_t lambda/(2 s0) = 16.67 mm.
+  tags:
+  - trap-half-pulse-length
+  source: original (Claude); answer to be checked by a human
+- id: wave-von-karman-critical-velocity
+  topic: plastic-waves
+  difficulty: 4
+  statement: |
+    A long thin bar of a bilinear elastic-plastic steel is struck on its end by a rigid face moving
+    at constant speed. The steel has Young's modulus 200 GPa, density 7850 kg/m^3, yield stress
+    250 MPa, tangent (hardening) modulus 2 GPa beyond yield and breaks when the stress reaches
+    400 MPa. Using von Karman's rate-independent theory of plastic waves in a bar, find the impact
+    speed above which the bar fails immediately at the struck end.
+  answer:
+    type: numeric
+    value: 44.166
+    unit: m/s
+    rel_tol: 0.01
+  solution: |
+    v_c = integral of c(eps) d eps = sigma_Y/(rho c0) + (sigma_u - sigma_Y)/(rho c1),
+    c1 = sqrt(E_t/rho) = 504.8 m/s: v_c = 6.31 + 37.86 = 44.2 m/s.
+  tags:
+  - trap-elastic-only
+  source: original (Claude); answer to be checked by a human
+- id: wave-hertz-sphere-collision-duration
+  topic: impact
+  difficulty: 5
+  statement: |
+    Two identical solid steel spheres of radius 10 mm (Young's modulus 200 GPa, Poisson's ratio
+    0.3, density 7850 kg/m^3) approach each other head-on with relative speed 1 m/s and collide
+    elastically. Using quasi-static Hertz contact theory, find the duration of the contact.
+  answer:
+    type: numeric
+    value: 6.13482e-05
+    unit: s
+    rel_tol: 0.02
+  solution: |
+    Effective mass m/2, radius R/2, modulus E* = E/(2(1-nu^2)). Force F = (4/3) E* sqrt(R*) d^1.5.
+    Max approach d_m = (15 m* v^2 /(16 E* sqrt R*))^(2/5) = 20.844 um; duration 2.943 d_m/v
+    = 61.3 us (checked by integrating the contact equation).
+  source: original (Claude); answer to be checked by a human

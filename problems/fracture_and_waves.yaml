@@ -1,0 +1,59 @@
+# Seed problems: fracture mechanics, vibrations, stress waves.
+
+- id: fracture-centre-crack-critical-stress
+  topic: fracture
+  difficulty: 2
+  statement: |
+    A large plate contains a through-thickness centre crack of total length 10 mm,
+    loaded in remote uniaxial tension perpendicular to the crack. The fracture toughness
+    is K_IC = 30 MPa*sqrt(m). Treat the plate as infinite (geometry factor 1) and use
+    linear elastic fracture mechanics. Find the remote stress at which the crack starts to grow.
+  answer: { type: numeric, value: 239.4e6, unit: Pa, rel_tol: 0.01 }
+  solution: |
+    K_I = sigma sqrt(pi a) with half-length a = 5 mm.
+    sigma_c = 30e6 / sqrt(pi * 0.005) = 239.4 MPa.
+  tags: [trap-half-length]
+
+- id: vibration-springs-in-series
+  topic: dynamics
+  difficulty: 2
+  statement: |
+    A mass m hangs from two linear springs of stiffness k1 and k2 connected in series
+    (one above the other). Neglect the springs' mass and damping. Find the natural
+    angular frequency of vertical oscillation.
+  answer:
+    type: symbolic
+    value: sqrt(k1*k2/(m*(k1 + k2)))
+    symbols: [k1, k2, m]
+  solution: k_eq = k1 k2 / (k1 + k2); omega = sqrt(k_eq / m).
+  tags: [trap-parallel-vs-series]
+
+- id: waves-bar-velocity-steel
+  topic: waves
+  difficulty: 1
+  statement: |
+    Find the speed of longitudinal elastic waves in a thin steel bar
+    (E = 200 GPa, density 7850 kg/m^3). Use one-dimensional bar theory.
+  answer: { type: numeric, value: 5047.5, unit: m/s, rel_tol: 0.01 }
+  solution: c = sqrt(E / rho) = sqrt(200e9 / 7850) = 5047.5 m/s.
+
+- id: waves-free-end-reflection
+  topic: waves
+  difficulty: 3
+  statement: |
+    A short rectangular compressive stress pulse of amplitude 100 MPa travels along a
+    long, thin, linearly elastic bar towards a free (traction-free) end. What happens to
+    the pulse on reflection, and what can this cause in a brittle material?
+  answer:
+    type: choice
+    value: B
+    options:
+      A: It reflects as a compressive pulse of 100 MPa; no new failure risk.
+      B: It reflects as a tensile pulse of 100 MPa; tensile failure (spalling) can occur near the free end.
+      C: It reflects as a compressive pulse of 200 MPa; crushing occurs at the end.
+      D: It is fully absorbed at the free end; no reflected pulse.
+  solution: |
+    At a free end the stress must vanish, so the reflected wave has the opposite sign.
+    The reflected tensile pulse overlaps the tail of the incident pulse and can exceed
+    the tensile strength a short distance from the end (spalling, Hopkinson's experiment).
+  tags: [dynamic-fracture]
