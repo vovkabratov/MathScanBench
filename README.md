@@ -14,7 +14,7 @@ correct one.
 
 Ten models, 96 problems photographed from four students' notebooks, 82 student
 solutions to check, and 60 typed mechanics problems.
-A full write-up will be added here.
+Full write-up: [TestReport.pdf](TestReport.pdf).
 
 1. **Models misread; they rarely miscalculate.** 75 of the 88 wrong photo
    answers start from reading the page wrongly (a digit, a sign, a decimal
